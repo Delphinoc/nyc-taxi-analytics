@@ -4,8 +4,9 @@ Portfolio project analysing NYC TLC Yellow Taxi trip records (January 2025)
 to study trip patterns, demand and supply proxies, and fares.
 
 **Status:** Phase 1 (environment, data acquisition, raw profile) and Phase 2
-(rule-based flagging and eligibility, no deletion) are implemented. Exploratory
-analysis, clustering and presentation are later phases.
+(rule-based flagging and eligibility, no deletion) are complete. Phase 3
+(exploratory analysis) is implemented and awaiting review. Clustering and the
+presentation are later phases.
 
 ## Repository layout
 
@@ -62,6 +63,18 @@ Each script takes 10 to 15 seconds. Peak memory is about 0.65 GB for cleaning an
 
 Profiling reads a few columns at a time and peaked at about 670 MB of Arrow
 memory on the full month, finishing in roughly 10 seconds on a Ryzen 7 laptop.
+
+## Reproduce Phase 3 (exploratory analysis)
+
+```powershell
+python src/eda_aggregates.py       # aggregate tables -> data/processed/eda/ (gitignored)
+python src/eda_figures.py          # charts -> reports/figures/
+```
+
+Findings: [reports/phase3_eda_report.md](reports/phase3_eda_report.md).
+Metric definitions and denominators: [docs/eda_metrics.md](docs/eda_metrics.md).
+Aggregation takes about 25 seconds and peaks around 1.6 GB of memory; charts
+take about 5 seconds.
 
 ## Data and limitations
 

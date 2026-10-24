@@ -10,8 +10,8 @@ data/processed/*
 *.part
 
 # --- Generated outputs (regenerate from scripts) ---
+# reports/figures/ is tracked: the charts are small and are a deliverable.
 outputs/
-reports/figures/
 
 # --- Python ---
 .venv/
