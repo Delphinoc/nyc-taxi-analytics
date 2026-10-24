@@ -1,0 +1,20 @@
+{
+  "yellow_tripdata_2025-01.parquet": {
+    "url": "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2025-01.parquet",
+    "size_bytes": 59158238,
+    "sha256": "9af277e4c0d3f9deb30644da822981e1e7df6af58313170fd3aa8a474485488a",
+    "downloaded_at_utc": "2026-10-24T14:29:51+00:00"
+  },
+  "taxi_zone_lookup.csv": {
+    "url": "https://d37ci6vzurychx.cloudfront.net/misc/taxi_zone_lookup.csv",
+    "size_bytes": 12331,
+    "sha256": "1a99e105092230f8620f301edcca7f80d3080642ff404d28ed957d3fa222c8ed",
+    "downloaded_at_utc": "2026-10-24T14:29:51+00:00"
+  },
+  "data_dictionary_trip_records_yellow.pdf": {
+    "url": "https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_yellow.pdf",
+    "size_bytes": 148556,
+    "sha256": "b9e9f0ecfa6bd9cc847283379173fd764fe1ab76d2fa143329f541cb1f479993",
+    "downloaded_at_utc": "2026-10-24T14:29:52+00:00"
+  }
+}

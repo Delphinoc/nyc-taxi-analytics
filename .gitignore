@@ -1,0 +1,41 @@
+# --- Data: never commit raw or derived datasets ---
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+# The checksum manifest is small and documents exactly which source files were used.
+!data/raw/manifest.json
+*.parquet
+*.csv.gz
+*.part
+
+# --- Generated outputs (regenerate from scripts) ---
+outputs/
+reports/figures/
+
+# --- Python ---
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+*.egg-info/
+
+# --- Secrets and local config ---
+.env
+.env.*
+*.key
+*.pem
+credentials*.json
+
+# --- Editors and OS ---
+.vscode/
+.idea/
+.claude/settings.local.json
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# --- Office temp files ---
+~$*
