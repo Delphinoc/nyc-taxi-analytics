@@ -3,8 +3,9 @@
 Portfolio project analysing NYC TLC Yellow Taxi trip records (January 2025)
 to study trip patterns, demand and supply proxies, and fares.
 
-**Status:** Phase 1 complete (environment, data acquisition, raw data profile).
-Cleaning, analysis, clustering and presentation are later phases.
+**Status:** Phase 1 (environment, data acquisition, raw profile) and Phase 2
+(rule-based flagging and eligibility, no deletion) are implemented. Exploratory
+analysis, clustering and presentation are later phases.
 
 ## Repository layout
 
@@ -13,7 +14,7 @@ data/raw/          Original TLC files, never modified (gitignored; manifest.json
 data/processed/    Derived datasets from later phases (gitignored)
 docs/              Data sources and measurement notes
 reports/           Data profile and analysis write-ups
-src/               Scripts: download_data.py, profile_raw.py
+src/               Scripts: download, profiling, cleaning rules, cleaning, validation
 tests/             pytest unit tests
 requirements.txt   Pinned Python dependencies
 ```
@@ -36,8 +37,28 @@ On macOS or Linux, use `python3.12 -m venv .venv` and `source .venv/bin/activate
 python src/download_data.py        # download raw files, record and verify SHA-256
 python src/download_data.py --verify   # later: confirm raw files are unchanged
 python src/profile_raw.py          # writes reports/phase1_data_profile.{md,json}
-python -m pytest -q                # unit tests for the profiling checks
+python -m pytest -q                # unit tests
 ```
+
+## Reproduce Phase 2
+
+```powershell
+python src/clean_trips.py          # writes data/processed/yellow_tripdata_2025-01_flagged.parquet
+python src/validate_cleaned.py     # integrity checks + reports/phase2_quality_report.{md,json}
+```
+
+The flagged file keeps every raw row and column unchanged and adds derived
+columns, `dq_*` / `scope_*` / `info_*` flags, four eligibility flags and an
+`exclusion_reasons` string. Filter on the eligibility flag for your purpose:
+
+```python
+import pandas as pd
+trips = pd.read_parquet("data/processed/yellow_tripdata_2025-01_flagged.parquet",
+                        filters=[("eligible_demand", "==", True)])
+```
+
+Rules and their justification: [docs/cleaning_rules.md](docs/cleaning_rules.md).
+Each script takes 10 to 15 seconds. Peak memory is about 0.65 GB for cleaning and 1.2 GB for validation.
 
 Profiling reads a few columns at a time and peaked at about 670 MB of Arrow
 memory on the full month, finishing in roughly 10 seconds on a Ryzen 7 laptop.

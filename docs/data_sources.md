@@ -23,14 +23,15 @@ changed, not necessarily that the download failed.
 | Fares, surcharges and card tips charged | **Observed** | Meter fields; cash tips are not recorded |
 | Total ride-request demand | **Not observed** | Unfulfilled requests, street hails that never found a cab, and trips taken by other modes (Uber/Lyft, Green taxi) are absent |
 | Driver supply or shortages | **Not observed** | No vehicle availability, idle time or driver location data. Pickups minus drop-offs by zone is at most a proxy for net vehicle flow, not a shortage measure |
-| Surge pricing | **Not applicable** | Yellow Taxi fares are metered at regulated rates; higher fares reflect distance, time, rate codes, tolls and surcharges, not dynamic pricing |
+| Surge pricing | **Not applicable to metered fares** | Metered Yellow Taxi fares use regulated rates; higher fares reflect distance, time, rate codes, tolls and surcharges. Flex Fare (app-booked, payment_type 0) prices are upfront and may include an app price multiplier, but its fare fields are incomplete, so this data can't measure it |
 
 Any later demand or supply measure built from this data is an **estimated
 proxy** and will be labelled as such.
 
 ## Known quirks found in Phase 1
 
-See `reports/phase1_data_profile.md` for counts. Highlights:
+See `reports/phase1_data_profile.md` for counts, and `docs/cleaning_rules.md`
+for the Phase 2 follow-up analysis of each quirk. Highlights:
 
 - The column is `Airport_fee` in the file but `airport_fee` in the dictionary.
 - 540,149 rows (15.5%) have `passenger_count`, `RatecodeID`, `store_and_fwd_flag`,

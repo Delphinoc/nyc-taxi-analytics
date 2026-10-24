@@ -1,0 +1,931 @@
+{
+  "integrity": {
+    "raw_sha256_matches_manifest": true,
+    "input_rows": 3475226,
+    "output_rows": 3475226,
+    "row_counts_equal": true,
+    "raw_schema_preserved": true,
+    "raw_values_identical": true,
+    "raw_null_counts_unchanged": true,
+    "flag_columns_boolean": true,
+    "flag_columns_null_free": true,
+    "speed_null_exactly_when_duration_nonpositive": true,
+    "output_columns": [
+      "trip_duration_min",
+      "avg_speed_mph",
+      "dq_invalid_location_id",
+      "dq_negative_duration",
+      "dq_zero_duration",
+      "dq_duration_over_12h",
+      "dq_implausible_speed",
+      "dq_zero_distance",
+      "dq_negative_total_amount",
+      "dq_nonpositive_fare",
+      "scope_outside_period",
+      "scope_pickup_zone_unknown_or_outside_nyc",
+      "scope_dropoff_zone_unknown_or_outside_nyc",
+      "scope_flex_fare",
+      "scope_fare_not_settled",
+      "info_negative_row_has_exact_reversal_partner",
+      "info_negative_row_match_ambiguous",
+      "info_total_differs_from_components",
+      "info_fare_outside_standard_meter_range",
+      "eligible_demand",
+      "eligible_distance_duration",
+      "eligible_fare",
+      "eligible_clustering",
+      "exclusion_reasons"
+    ]
+  },
+  "reversal_audit": {
+    "rows_sharing_a_key_with_another_row": 105076,
+    "key_group_sizes_above_1": {
+      "2": 52535,
+      "3": 2
+    },
+    "negative_rows": 63037,
+    "matched_one_to_one": 51840,
+    "positive_rows_matched": 51840,
+    "ambiguous_negative_rows": 0,
+    "unmatched_negative_rows": 11197,
+    "unmatched_sharing_key_with_positive_of_other_amount": 691,
+    "unmatched_by_payment_type": {
+      "4": 5078,
+      "0": 3421,
+      "2": 1771,
+      "3": 926,
+      "1": 1
+    }
+  },
+  "fee_identity": {
+    "all_amounts_whole_cents": true,
+    "vendor1_non_flex": {
+      "rows": 665467,
+      "rows_with_null_amounts": 0,
+      "identity_holds": 665467,
+      "residual_zero": 59679,
+      "residual_zero_with_fees_zero": 59679,
+      "identity_exceptions": 0,
+      "top_residuals_cents": {
+        "-325": 391079,
+        "-250": 176721,
+        "0": 59679,
+        "-175": 15053,
+        "-500": 13930
+      }
+    },
+    "vendor2_non_flex": {
+      "rows": 2268404,
+      "rows_with_null_amounts": 0,
+      "identity_holds": 56034,
+      "residual_zero": 2237709,
+      "residual_zero_with_fees_zero": 56034,
+      "identity_exceptions": 2212370,
+      "top_residuals_cents": {
+        "0": 2237709,
+        "-75": 27080,
+        "250": 3476,
+        "-325": 85,
+        "-250": 27
+      }
+    }
+  },
+  "flags": [
+    {
+      "flag": "dq_invalid_location_id",
+      "kind": "data quality",
+      "rows": 0,
+      "pct": 0.0,
+      "rows_with_no_other_excluding_flag": 0
+    },
+    {
+      "flag": "dq_negative_duration",
+      "kind": "data quality",
+      "rows": 124,
+      "pct": 0.004,
+      "rows_with_no_other_excluding_flag": 6
+    },
+    {
+      "flag": "dq_zero_duration",
+      "kind": "data quality",
+      "rows": 1927,
+      "pct": 0.055,
+      "rows_with_no_other_excluding_flag": 1186
+    },
+    {
+      "flag": "dq_duration_over_12h",
+      "kind": "data quality",
+      "rows": 1040,
+      "pct": 0.03,
+      "rows_with_no_other_excluding_flag": 976
+    },
+    {
+      "flag": "dq_implausible_speed",
+      "kind": "data quality",
+      "rows": 982,
+      "pct": 0.028,
+      "rows_with_no_other_excluding_flag": 344
+    },
+    {
+      "flag": "dq_zero_distance",
+      "kind": "data quality",
+      "rows": 90893,
+      "pct": 2.615,
+      "rows_with_no_other_excluding_flag": 24663
+    },
+    {
+      "flag": "dq_negative_total_amount",
+      "kind": "data quality",
+      "rows": 63037,
+      "pct": 1.814,
+      "rows_with_no_other_excluding_flag": 0
+    },
+    {
+      "flag": "dq_nonpositive_fare",
+      "kind": "data quality",
+      "rows": 60655,
+      "pct": 1.745,
+      "rows_with_no_other_excluding_flag": 101
+    },
+    {
+      "flag": "scope_outside_period",
+      "kind": "scope",
+      "rows": 22,
+      "pct": 0.001,
+      "rows_with_no_other_excluding_flag": 21
+    },
+    {
+      "flag": "scope_pickup_zone_unknown_or_outside_nyc",
+      "kind": "scope",
+      "rows": 9521,
+      "pct": 0.274,
+      "rows_with_no_other_excluding_flag": 3932
+    },
+    {
+      "flag": "scope_dropoff_zone_unknown_or_outside_nyc",
+      "kind": "scope",
+      "rows": 24062,
+      "pct": 0.692,
+      "rows_with_no_other_excluding_flag": 16240
+    },
+    {
+      "flag": "scope_flex_fare",
+      "kind": "scope",
+      "rows": 540149,
+      "pct": 15.543,
+      "rows_with_no_other_excluding_flag": 483645
+    },
+    {
+      "flag": "scope_fare_not_settled",
+      "kind": "scope",
+      "rows": 116361,
+      "pct": 3.348,
+      "rows_with_no_other_excluding_flag": 61467
+    },
+    {
+      "flag": "info_negative_row_has_exact_reversal_partner",
+      "kind": "info",
+      "rows": 51840,
+      "pct": 1.492,
+      "rows_with_no_other_excluding_flag": null
+    },
+    {
+      "flag": "info_negative_row_match_ambiguous",
+      "kind": "info",
+      "rows": 0,
+      "pct": 0.0,
+      "rows_with_no_other_excluding_flag": null
+    },
+    {
+      "flag": "info_total_differs_from_components",
+      "kind": "info",
+      "rows": 1111816,
+      "pct": 31.993,
+      "rows_with_no_other_excluding_flag": null
+    },
+    {
+      "flag": "info_fare_outside_standard_meter_range",
+      "kind": "info",
+      "rows": 1128,
+      "pct": 0.032,
+      "rows_with_no_other_excluding_flag": null
+    }
+  ],
+  "overlap": {
+    "dq_invalid_location_id": {
+      "dq_invalid_location_id": 0,
+      "dq_negative_duration": 0,
+      "dq_zero_duration": 0,
+      "dq_duration_over_12h": 0,
+      "dq_implausible_speed": 0,
+      "dq_zero_distance": 0,
+      "dq_negative_total_amount": 0,
+      "dq_nonpositive_fare": 0,
+      "scope_outside_period": 0,
+      "scope_pickup_zone_unknown_or_outside_nyc": 0,
+      "scope_dropoff_zone_unknown_or_outside_nyc": 0,
+      "scope_flex_fare": 0,
+      "scope_fare_not_settled": 0
+    },
+    "dq_negative_duration": {
+      "dq_invalid_location_id": 0,
+      "dq_negative_duration": 124,
+      "dq_zero_duration": 0,
+      "dq_duration_over_12h": 0,
+      "dq_implausible_speed": 0,
+      "dq_zero_distance": 0,
+      "dq_negative_total_amount": 0,
+      "dq_nonpositive_fare": 0,
+      "scope_outside_period": 0,
+      "scope_pickup_zone_unknown_or_outside_nyc": 0,
+      "scope_dropoff_zone_unknown_or_outside_nyc": 0,
+      "scope_flex_fare": 118,
+      "scope_fare_not_settled": 0
+    },
+    "dq_zero_duration": {
+      "dq_invalid_location_id": 0,
+      "dq_negative_duration": 0,
+      "dq_zero_duration": 1927,
+      "dq_duration_over_12h": 0,
+      "dq_implausible_speed": 0,
+      "dq_zero_distance": 692,
+      "dq_negative_total_amount": 3,
+      "dq_nonpositive_fare": 43,
+      "scope_outside_period": 0,
+      "scope_pickup_zone_unknown_or_outside_nyc": 48,
+      "scope_dropoff_zone_unknown_or_outside_nyc": 600,
+      "scope_flex_fare": 101,
+      "scope_fare_not_settled": 65
+    },
+    "dq_duration_over_12h": {
+      "dq_invalid_location_id": 0,
+      "dq_negative_duration": 0,
+      "dq_zero_duration": 0,
+      "dq_duration_over_12h": 1040,
+      "dq_implausible_speed": 0,
+      "dq_zero_distance": 17,
+      "dq_negative_total_amount": 12,
+      "dq_nonpositive_fare": 15,
+      "scope_outside_period": 0,
+      "scope_pickup_zone_unknown_or_outside_nyc": 7,
+      "scope_dropoff_zone_unknown_or_outside_nyc": 16,
+      "scope_flex_fare": 6,
+      "scope_fare_not_settled": 21
+    },
+    "dq_implausible_speed": {
+      "dq_invalid_location_id": 0,
+      "dq_negative_duration": 0,
+      "dq_zero_duration": 0,
+      "dq_duration_over_12h": 0,
+      "dq_implausible_speed": 982,
+      "dq_zero_distance": 0,
+      "dq_negative_total_amount": 12,
+      "dq_nonpositive_fare": 33,
+      "scope_outside_period": 1,
+      "scope_pickup_zone_unknown_or_outside_nyc": 40,
+      "scope_dropoff_zone_unknown_or_outside_nyc": 71,
+      "scope_flex_fare": 344,
+      "scope_fare_not_settled": 211
+    },
+    "dq_zero_distance": {
+      "dq_invalid_location_id": 0,
+      "dq_negative_duration": 0,
+      "dq_zero_duration": 692,
+      "dq_duration_over_12h": 17,
+      "dq_implausible_speed": 0,
+      "dq_zero_distance": 90893,
+      "dq_negative_total_amount": 4526,
+      "dq_nonpositive_fare": 4958,
+      "scope_outside_period": 0,
+      "scope_pickup_zone_unknown_or_outside_nyc": 1193,
+      "scope_dropoff_zone_unknown_or_outside_nyc": 2027,
+      "scope_flex_fare": 51983,
+      "scope_fare_not_settled": 11481
+    },
+    "dq_negative_total_amount": {
+      "dq_invalid_location_id": 0,
+      "dq_negative_duration": 0,
+      "dq_zero_duration": 3,
+      "dq_duration_over_12h": 12,
+      "dq_implausible_speed": 12,
+      "dq_zero_distance": 4526,
+      "dq_negative_total_amount": 63037,
+      "dq_nonpositive_fare": 59616,
+      "scope_outside_period": 0,
+      "scope_pickup_zone_unknown_or_outside_nyc": 170,
+      "scope_dropoff_zone_unknown_or_outside_nyc": 664,
+      "scope_flex_fare": 3421,
+      "scope_fare_not_settled": 45490
+    },
+    "dq_nonpositive_fare": {
+      "dq_invalid_location_id": 0,
+      "dq_negative_duration": 0,
+      "dq_zero_duration": 43,
+      "dq_duration_over_12h": 15,
+      "dq_implausible_speed": 33,
+      "dq_zero_distance": 4958,
+      "dq_negative_total_amount": 59616,
+      "dq_nonpositive_fare": 60655,
+      "scope_outside_period": 0,
+      "scope_pickup_zone_unknown_or_outside_nyc": 189,
+      "scope_dropoff_zone_unknown_or_outside_nyc": 725,
+      "scope_flex_fare": 0,
+      "scope_fare_not_settled": 46269
+    },
+    "scope_outside_period": {
+      "dq_invalid_location_id": 0,
+      "dq_negative_duration": 0,
+      "dq_zero_duration": 0,
+      "dq_duration_over_12h": 0,
+      "dq_implausible_speed": 1,
+      "dq_zero_distance": 0,
+      "dq_negative_total_amount": 0,
+      "dq_nonpositive_fare": 0,
+      "scope_outside_period": 22,
+      "scope_pickup_zone_unknown_or_outside_nyc": 0,
+      "scope_dropoff_zone_unknown_or_outside_nyc": 0,
+      "scope_flex_fare": 0,
+      "scope_fare_not_settled": 0
+    },
+    "scope_pickup_zone_unknown_or_outside_nyc": {
+      "dq_invalid_location_id": 0,
+      "dq_negative_duration": 0,
+      "dq_zero_duration": 48,
+      "dq_duration_over_12h": 7,
+      "dq_implausible_speed": 40,
+      "dq_zero_distance": 1193,
+      "dq_negative_total_amount": 170,
+      "dq_nonpositive_fare": 189,
+      "scope_outside_period": 0,
+      "scope_pickup_zone_unknown_or_outside_nyc": 9521,
+      "scope_dropoff_zone_unknown_or_outside_nyc": 5226,
+      "scope_flex_fare": 264,
+      "scope_fare_not_settled": 467
+    },
+    "scope_dropoff_zone_unknown_or_outside_nyc": {
+      "dq_invalid_location_id": 0,
+      "dq_negative_duration": 0,
+      "dq_zero_duration": 600,
+      "dq_duration_over_12h": 16,
+      "dq_implausible_speed": 71,
+      "dq_zero_distance": 2027,
+      "dq_negative_total_amount": 664,
+      "dq_nonpositive_fare": 725,
+      "scope_outside_period": 0,
+      "scope_pickup_zone_unknown_or_outside_nyc": 5226,
+      "scope_dropoff_zone_unknown_or_outside_nyc": 24062,
+      "scope_flex_fare": 595,
+      "scope_fare_not_settled": 1447
+    },
+    "scope_flex_fare": {
+      "dq_invalid_location_id": 0,
+      "dq_negative_duration": 118,
+      "dq_zero_duration": 101,
+      "dq_duration_over_12h": 6,
+      "dq_implausible_speed": 344,
+      "dq_zero_distance": 51983,
+      "dq_negative_total_amount": 3421,
+      "dq_nonpositive_fare": 0,
+      "scope_outside_period": 0,
+      "scope_pickup_zone_unknown_or_outside_nyc": 264,
+      "scope_dropoff_zone_unknown_or_outside_nyc": 595,
+      "scope_flex_fare": 540149,
+      "scope_fare_not_settled": 0
+    },
+    "scope_fare_not_settled": {
+      "dq_invalid_location_id": 0,
+      "dq_negative_duration": 0,
+      "dq_zero_duration": 65,
+      "dq_duration_over_12h": 21,
+      "dq_implausible_speed": 211,
+      "dq_zero_distance": 11481,
+      "dq_negative_total_amount": 45490,
+      "dq_nonpositive_fare": 46269,
+      "scope_outside_period": 0,
+      "scope_pickup_zone_unknown_or_outside_nyc": 467,
+      "scope_dropoff_zone_unknown_or_outside_nyc": 1447,
+      "scope_flex_fare": 0,
+      "scope_fare_not_settled": 116361
+    }
+  },
+  "combinations": {
+    "rows_by_number_of_excluding_flags": {
+      "0": 2751292,
+      "1": 592581,
+      "2": 82447,
+      "3": 44543,
+      "4": 4211,
+      "5": 87,
+      "6": 65
+    },
+    "top_combinations": {
+      "(none)": 2751292,
+      "scope_flex_fare": 483645,
+      "scope_fare_not_settled": 61467,
+      "dq_zero_distance;scope_flex_fare": 51773,
+      "dq_negative_total_amount;dq_nonpositive_fare;scope_fare_not_settled": 41435,
+      "dq_zero_distance": 24663,
+      "scope_dropoff_zone_unknown_or_outside_nyc": 16240,
+      "dq_negative_total_amount;dq_nonpositive_fare": 13048,
+      "dq_zero_distance;scope_fare_not_settled": 7390,
+      "scope_pickup_zone_unknown_or_outside_nyc": 3932,
+      "scope_pickup_zone_unknown_or_outside_nyc;scope_dropoff_zone_unknown_or_outside_nyc": 3876,
+      "dq_zero_distance;dq_negative_total_amount;dq_nonpositive_fare;scope_fare_not_settled": 3486
+    }
+  },
+  "eligibility": {
+    "eligible_demand": {
+      "eligible": 3402692,
+      "eligible_pct": 97.913,
+      "excluded": 72534,
+      "excluded_data_quality_only": 62991,
+      "excluded_scope_only": 9373,
+      "excluded_both": 170
+    },
+    "eligible_distance_duration": {
+      "eligible": 3322460,
+      "eligible_pct": 95.604,
+      "excluded": 152766,
+      "excluded_data_quality_only": 152744,
+      "excluded_scope_only": 21,
+      "excluded_both": 1
+    },
+    "eligible_fare": {
+      "eligible": 2775340,
+      "eligible_pct": 79.861,
+      "excluded": 699886,
+      "excluded_data_quality_only": 43354,
+      "excluded_scope_only": 546599,
+      "excluded_both": 109933
+    },
+    "eligible_clustering": {
+      "eligible": 3296935,
+      "eligible_pct": 94.87,
+      "excluded": 178291,
+      "excluded_data_quality_only": 149912,
+      "excluded_scope_only": 25546,
+      "excluded_both": 2833
+    }
+  },
+  "waterfalls": {
+    "eligible_demand": [
+      {
+        "step": "raw rows",
+        "removed": 0,
+        "remaining": 3475226,
+        "flagged_in_total": null
+      },
+      {
+        "step": "scope_outside_period",
+        "removed": 22,
+        "remaining": 3475204,
+        "flagged_in_total": 22
+      },
+      {
+        "step": "dq_invalid_location_id",
+        "removed": 0,
+        "remaining": 3475204,
+        "flagged_in_total": 0
+      },
+      {
+        "step": "dq_negative_total_amount",
+        "removed": 63037,
+        "remaining": 3412167,
+        "flagged_in_total": 63037
+      },
+      {
+        "step": "dq_negative_duration",
+        "removed": 124,
+        "remaining": 3412043,
+        "flagged_in_total": 124
+      },
+      {
+        "step": "scope_pickup_zone_unknown_or_outside_nyc",
+        "removed": 9351,
+        "remaining": 3402692,
+        "flagged_in_total": 9521
+      }
+    ],
+    "eligible_distance_duration": [
+      {
+        "step": "raw rows",
+        "removed": 0,
+        "remaining": 3475226,
+        "flagged_in_total": null
+      },
+      {
+        "step": "scope_outside_period",
+        "removed": 22,
+        "remaining": 3475204,
+        "flagged_in_total": 22
+      },
+      {
+        "step": "dq_invalid_location_id",
+        "removed": 0,
+        "remaining": 3475204,
+        "flagged_in_total": 0
+      },
+      {
+        "step": "dq_negative_total_amount",
+        "removed": 63037,
+        "remaining": 3412167,
+        "flagged_in_total": 63037
+      },
+      {
+        "step": "dq_negative_duration",
+        "removed": 124,
+        "remaining": 3412043,
+        "flagged_in_total": 124
+      },
+      {
+        "step": "dq_zero_duration",
+        "removed": 1924,
+        "remaining": 3410119,
+        "flagged_in_total": 1927
+      },
+      {
+        "step": "dq_duration_over_12h",
+        "removed": 1028,
+        "remaining": 3409091,
+        "flagged_in_total": 1040
+      },
+      {
+        "step": "dq_zero_distance",
+        "removed": 85662,
+        "remaining": 3323429,
+        "flagged_in_total": 90893
+      },
+      {
+        "step": "dq_implausible_speed",
+        "removed": 969,
+        "remaining": 3322460,
+        "flagged_in_total": 982
+      }
+    ],
+    "eligible_fare": [
+      {
+        "step": "raw rows",
+        "removed": 0,
+        "remaining": 3475226,
+        "flagged_in_total": null
+      },
+      {
+        "step": "scope_outside_period",
+        "removed": 22,
+        "remaining": 3475204,
+        "flagged_in_total": 22
+      },
+      {
+        "step": "dq_invalid_location_id",
+        "removed": 0,
+        "remaining": 3475204,
+        "flagged_in_total": 0
+      },
+      {
+        "step": "dq_negative_total_amount",
+        "removed": 63037,
+        "remaining": 3412167,
+        "flagged_in_total": 63037
+      },
+      {
+        "step": "dq_negative_duration",
+        "removed": 124,
+        "remaining": 3412043,
+        "flagged_in_total": 124
+      },
+      {
+        "step": "dq_zero_duration",
+        "removed": 1924,
+        "remaining": 3410119,
+        "flagged_in_total": 1927
+      },
+      {
+        "step": "dq_duration_over_12h",
+        "removed": 1028,
+        "remaining": 3409091,
+        "flagged_in_total": 1040
+      },
+      {
+        "step": "dq_zero_distance",
+        "removed": 85662,
+        "remaining": 3323429,
+        "flagged_in_total": 90893
+      },
+      {
+        "step": "dq_implausible_speed",
+        "removed": 969,
+        "remaining": 3322460,
+        "flagged_in_total": 982
+      },
+      {
+        "step": "scope_flex_fare",
+        "removed": 484301,
+        "remaining": 2838159,
+        "flagged_in_total": 540149
+      },
+      {
+        "step": "scope_fare_not_settled",
+        "removed": 62716,
+        "remaining": 2775443,
+        "flagged_in_total": 116361
+      },
+      {
+        "step": "dq_nonpositive_fare",
+        "removed": 103,
+        "remaining": 2775340,
+        "flagged_in_total": 60655
+      }
+    ],
+    "eligible_clustering": [
+      {
+        "step": "raw rows",
+        "removed": 0,
+        "remaining": 3475226,
+        "flagged_in_total": null
+      },
+      {
+        "step": "scope_outside_period",
+        "removed": 22,
+        "remaining": 3475204,
+        "flagged_in_total": 22
+      },
+      {
+        "step": "dq_invalid_location_id",
+        "removed": 0,
+        "remaining": 3475204,
+        "flagged_in_total": 0
+      },
+      {
+        "step": "dq_negative_total_amount",
+        "removed": 63037,
+        "remaining": 3412167,
+        "flagged_in_total": 63037
+      },
+      {
+        "step": "dq_negative_duration",
+        "removed": 124,
+        "remaining": 3412043,
+        "flagged_in_total": 124
+      },
+      {
+        "step": "dq_zero_duration",
+        "removed": 1924,
+        "remaining": 3410119,
+        "flagged_in_total": 1927
+      },
+      {
+        "step": "dq_duration_over_12h",
+        "removed": 1028,
+        "remaining": 3409091,
+        "flagged_in_total": 1040
+      },
+      {
+        "step": "dq_zero_distance",
+        "removed": 85662,
+        "remaining": 3323429,
+        "flagged_in_total": 90893
+      },
+      {
+        "step": "dq_implausible_speed",
+        "removed": 969,
+        "remaining": 3322460,
+        "flagged_in_total": 982
+      },
+      {
+        "step": "scope_pickup_zone_unknown_or_outside_nyc",
+        "removed": 8185,
+        "remaining": 3314275,
+        "flagged_in_total": 9521
+      },
+      {
+        "step": "scope_dropoff_zone_unknown_or_outside_nyc",
+        "removed": 17340,
+        "remaining": 3296935,
+        "flagged_in_total": 24062
+      }
+    ]
+  },
+  "disproportion": {
+    "by_vendor": [
+      {
+        "VendorID": 1,
+        "rows": 753671,
+        "excluded_demand": 0.67,
+        "excluded_distance_duration": 2.15,
+        "excluded_fare": 14.8,
+        "excluded_clustering": 3.87,
+        "dq_invalid_location_id": 0.0,
+        "dq_negative_duration": 0.0,
+        "dq_zero_duration": 0.08,
+        "dq_duration_over_12h": 0.0,
+        "dq_implausible_speed": 0.07,
+        "dq_zero_distance": 2.07,
+        "dq_negative_total_amount": 0.0,
+        "dq_nonpositive_fare": 0.08
+      },
+      {
+        "VendorID": 2,
+        "rows": 2719860,
+        "excluded_demand": 2.48,
+        "excluded_distance_duration": 4.97,
+        "excluded_fare": 21.57,
+        "excluded_clustering": 5.43,
+        "dq_invalid_location_id": 0.0,
+        "dq_negative_duration": 0.0,
+        "dq_zero_duration": 0.0,
+        "dq_duration_over_12h": 0.04,
+        "dq_implausible_speed": 0.01,
+        "dq_zero_distance": 2.77,
+        "dq_negative_total_amount": 2.32,
+        "dq_nonpositive_fare": 2.21
+      },
+      {
+        "VendorID": 6,
+        "rows": 489,
+        "excluded_demand": 24.13,
+        "excluded_distance_duration": 51.53,
+        "excluded_fare": 100.0,
+        "excluded_clustering": 51.74,
+        "dq_invalid_location_id": 0.0,
+        "dq_negative_duration": 24.13,
+        "dq_zero_duration": 1.02,
+        "dq_duration_over_12h": 0.0,
+        "dq_implausible_speed": 26.38,
+        "dq_zero_distance": 0.0,
+        "dq_negative_total_amount": 0.0,
+        "dq_nonpositive_fare": 0.0
+      },
+      {
+        "VendorID": 7,
+        "rows": 1206,
+        "excluded_demand": 0.33,
+        "excluded_distance_duration": 100.0,
+        "excluded_fare": 100.0,
+        "excluded_clustering": 100.0,
+        "dq_invalid_location_id": 0.0,
+        "dq_negative_duration": 0.0,
+        "dq_zero_duration": 100.0,
+        "dq_duration_over_12h": 0.0,
+        "dq_implausible_speed": 0.0,
+        "dq_zero_distance": 0.83,
+        "dq_negative_total_amount": 0.0,
+        "dq_nonpositive_fare": 0.0
+      }
+    ],
+    "by_payment_type": [
+      {
+        "payment_type": "Cash",
+        "rows": 390429,
+        "excluded_demand": 3.99,
+        "excluded_distance_duration": 5.8,
+        "excluded_fare": 9.64,
+        "excluded_clustering": 6.93,
+        "dq_invalid_location_id": 0.0,
+        "dq_negative_duration": 0.0,
+        "dq_zero_duration": 0.14,
+        "dq_duration_over_12h": 0.07,
+        "dq_implausible_speed": 0.03,
+        "dq_zero_distance": 2.29,
+        "dq_negative_total_amount": 3.61,
+        "dq_nonpositive_fare": 3.73
+      },
+      {
+        "payment_type": "Credit card",
+        "rows": 2444393,
+        "excluded_demand": 0.3,
+        "excluded_distance_duration": 0.89,
+        "excluded_fare": 0.89,
+        "excluded_clustering": 1.7,
+        "dq_invalid_location_id": 0.0,
+        "dq_negative_duration": 0.0,
+        "dq_zero_duration": 0.05,
+        "dq_duration_over_12h": 0.03,
+        "dq_implausible_speed": 0.01,
+        "dq_zero_distance": 0.8,
+        "dq_negative_total_amount": 0.0,
+        "dq_nonpositive_fare": 0.0
+      },
+      {
+        "payment_type": "Dispute",
+        "rows": 76481,
+        "excluded_demand": 49.1,
+        "excluded_distance_duration": 53.39,
+        "excluded_fare": 100.0,
+        "excluded_clustering": 54.0,
+        "dq_invalid_location_id": 0.0,
+        "dq_negative_duration": 0.0,
+        "dq_zero_duration": 0.01,
+        "dq_duration_over_12h": 0.01,
+        "dq_implausible_speed": 0.11,
+        "dq_zero_distance": 7.18,
+        "dq_negative_total_amount": 48.91,
+        "dq_nonpositive_fare": 49.29
+      },
+      {
+        "payment_type": "Flex Fare",
+        "rows": 540149,
+        "excluded_demand": 0.7,
+        "excluded_distance_duration": 10.34,
+        "excluded_fare": 100.0,
+        "excluded_clustering": 10.46,
+        "dq_invalid_location_id": 0.0,
+        "dq_negative_duration": 0.02,
+        "dq_zero_duration": 0.02,
+        "dq_duration_over_12h": 0.0,
+        "dq_implausible_speed": 0.06,
+        "dq_zero_distance": 9.62,
+        "dq_negative_total_amount": 0.63,
+        "dq_nonpositive_fare": 0.0
+      },
+      {
+        "payment_type": "No charge",
+        "rows": 23773,
+        "excluded_demand": 34.59,
+        "excluded_distance_duration": 49.05,
+        "excluded_fare": 100.0,
+        "excluded_clustering": 49.85,
+        "dq_invalid_location_id": 0.0,
+        "dq_negative_duration": 0.0,
+        "dq_zero_duration": 0.24,
+        "dq_duration_over_12h": 0.06,
+        "dq_implausible_speed": 0.52,
+        "dq_zero_distance": 20.36,
+        "dq_negative_total_amount": 33.99,
+        "dq_nonpositive_fare": 34.83
+      },
+      {
+        "payment_type": "Unknown",
+        "rows": 1,
+        "excluded_demand": 0.0,
+        "excluded_distance_duration": 100.0,
+        "excluded_fare": 100.0,
+        "excluded_clustering": 100.0,
+        "dq_invalid_location_id": 0.0,
+        "dq_negative_duration": 0.0,
+        "dq_zero_duration": 0.0,
+        "dq_duration_over_12h": 0.0,
+        "dq_implausible_speed": 0.0,
+        "dq_zero_distance": 100.0,
+        "dq_negative_total_amount": 0.0,
+        "dq_nonpositive_fare": 100.0
+      }
+    ],
+    "by_pickup_date_spread": {
+      "excluded_demand": {
+        "min": 1.69,
+        "max": 6.31,
+        "min_at": "2025-01-16",
+        "max_at": "2025-01-01"
+      },
+      "excluded_distance_duration": {
+        "min": 2.66,
+        "max": 7.64,
+        "min_at": "2025-01-19",
+        "max_at": "2025-01-01"
+      },
+      "excluded_fare": {
+        "min": 10.09,
+        "max": 35.43,
+        "min_at": "2025-01-03",
+        "max_at": "2025-01-19"
+      },
+      "excluded_clustering": {
+        "min": 3.3,
+        "max": 8.53,
+        "min_at": "2025-01-19",
+        "max_at": "2025-01-01"
+      }
+    },
+    "by_pickup_hour_spread": {
+      "excluded_demand": {
+        "min": 1.34,
+        "max": 4.92,
+        "min_at": "8",
+        "max_at": "3"
+      },
+      "excluded_distance_duration": {
+        "min": 2.27,
+        "max": 9.64,
+        "min_at": "8",
+        "max_at": "18"
+      },
+      "excluded_fare": {
+        "min": 10.6,
+        "max": 40.85,
+        "min_at": "11",
+        "max_at": "4"
+      },
+      "excluded_clustering": {
+        "min": 2.92,
+        "max": 10.29,
+        "min_at": "8",
+        "max_at": "18"
+      }
+    }
+  },
+  "meter_range_check": {
+    "rows_flagged": 1128,
+    "of_which_fare_eligible": 120
+  },
+  "peak_arrow_memory_mb": 430.4
+}
