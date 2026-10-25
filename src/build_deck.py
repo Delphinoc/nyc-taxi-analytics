@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 import pandas as pd
@@ -53,6 +54,7 @@ SLIDE_W, SLIDE_H = Inches(13.333), Inches(7.5)
 MARGIN = Inches(0.6)
 SOURCE = ("Source: NYC TLC Yellow Taxi trip records, January 2025 (nyc.gov/tlc). "
           "Completed trips only; eligibility rules per project Phase 2.")
+AUDIENCE = "a hypothetical fleet operations and dispatch planning team"
 
 
 # --------------------------------------------------------------------------- data
@@ -67,6 +69,7 @@ def load_numbers() -> dict:
     summary = json.loads((ZONES_DIR / "clustering_summary.json").read_text(encoding="utf-8"))
     profiles = pd.read_csv(ZONES_DIR / "model_A_k5_profiles.csv").set_index("cluster")
     counts = pd.read_parquet(ZONES_DIR / "zone_date_hour_counts.parquet")
+    weighting = pd.read_csv(ZONES_DIR / "model_A_weighting_comparison.csv")
 
     midtown = counts[(counts["zone_id"] == 161) & (counts["day_type"] == "weekday")]
     daily = (midtown.assign(net=midtown["pickups"] - midtown["dropoffs"])
@@ -111,6 +114,7 @@ def load_numbers() -> dict:
         "weight_moved": summary["A"]["weighting_comparison"]["zones_moved"],
         "weight_agree_pct": summary["A"]["weighting_comparison"]["pickup_weighted_agreement_pct"],
         "profiles": profiles,
+        "weighting": weighting,
     }
 
 
@@ -161,6 +165,13 @@ def verify(n: dict) -> list[str]:
     am, pm = n["midtown_avg"][8], n["midtown_avg"][20]
     assert round(am) == -301 and round(pm) == 396, (am, pm)
     log.append(f"OK Midtown Center average net flow 08:00 = {am:.0f}, 20:00 = {pm:+.0f}")
+    zones = n["weighting"].set_index("zone")
+    for cluster, names in EXAMPLE_ZONES.items():
+        for name in names:
+            row = zones.loc[name]
+            assert row["equal_feature"] == cluster and not row["moved"], (
+                f"example {name} is not a stable member of segment {cluster + 1}")
+        log.append(f"OK segment {cluster + 1} examples are stable members: {', '.join(names)}")
     return log
 
 
@@ -291,8 +302,8 @@ def style_axis(axis, size=11, color=SLATE, gridlines=False):
 def slide_summary(prs, n):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     background(slide, NAVY)
-    header(slide, "Executive summary · NYC Yellow Taxi, January 2025",
-           "Taxi activity is concentrated, directional and predictable, which supports "
+    header(slide, f"Executive summary · NYC Yellow Taxi, Jan 2025 · For {AUDIENCE}",
+           "Taxi activity is concentrated, directional and recurring, which supports "
            "zone- and time-specific planning", dark=True)
     text(slide, MARGIN, Inches(1.95), Inches(12.1), Inches(0.5),
          [[("Business question  ", {"bold": True, "color": YELLOW}),
@@ -333,11 +344,13 @@ def slide_summary(prs, n):
             "driver shortages.", {"color": WHITE})]], size=13)
     footer(slide, 1, dark=True)
     slide.notes_slide.notes_text_frame.text = (
+        f"Audience: {AUDIENCE} for NYC Yellow Taxis. "
         "Data: NYC TLC Yellow Taxi trip records for January 2025 (3,475,226 raw records). "
         "Phase 2 flags rather than deletes records; 3,402,692 are eligible pickups "
         "(eligible_demand). Finding 1: Phase 3 zone and borough tables. Finding 2: Phase 3 "
-        "imbalance index (P - D)/(P + D) and persistence, independently re-verified in the "
-        "Phase 3 QC pass. Finding 3: Phase 4 Model A k-means with k = 5 (analyst-selected; the "
+        "imbalance index (P - D)/(P + D) and persistence, recomputed independently in the "
+        "Phase 3 checks. 'Recurring' means repeated within January 2025; no forecast was "
+        "built or tested. Finding 3: Phase 4 Model A k-means with k = 5 (analyst-selected; the "
         "pre-specified rule selected k = 2). Nothing here measures ride requests, taxi supply "
         "or wait times.")
 
@@ -434,7 +447,7 @@ def slide_demand(prs, n):
 def slide_flows(prs, n):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     background(slide, WHITE)
-    header(slide, "Predictable directional flows · Midtown Center",
+    header(slide, "Recurring directional flows · Midtown Center",
            "Midtown Center receives more trips than it sends every weekday morning, "
            "and the reverse every evening")
 
@@ -497,9 +510,14 @@ def slide_flows(prs, n):
     for stat, label in rows:
         text(slide, right, y, col_w, Inches(0.6), stat, size=32, bold=True, color=NAVY)
         text(slide, right, y + Inches(0.62), col_w, Inches(0.65), label, size=13, color=SLATE)
-        y += Inches(1.38)
-    panel(slide, right, Inches(6.0), col_w, Inches(0.78), fill=PANEL, name="Definition")
-    text(slide, right + Inches(0.18), Inches(6.08), col_w - Inches(0.36), Inches(0.64),
+        y += Inches(1.2)
+    text(slide, right, y - Inches(0.1), col_w, Inches(0.55),
+         [[("Caveat  ", {"bold": True, "color": INK}),
+           ("Cells were selected for strong imbalance before persistence was measured, "
+            "so high persistence is partly expected.", {"color": SLATE})]], size=11,
+         name="Selection caveat")
+    panel(slide, right, Inches(6.08), col_w, Inches(0.74), fill=PANEL, name="Definition")
+    text(slide, right + Inches(0.18), Inches(6.13), col_w - Inches(0.36), Inches(0.64),
          "Net flow = pickups minus drop-offs of completed trips: a passenger-flow pattern, "
          "not a count of available taxis or unmet demand.", size=11, color=INK,
          anchor=MSO_ANCHOR.MIDDLE)
@@ -512,18 +530,28 @@ def slide_flows(prs, n):
         "all 21 weekdays and positive at every hour 17:00-21:59 on all 21 weekdays. Citywide, "
         f"{n['strong_persistent']} of {n['strong_cells']} weekday zone-hours with |imbalance index| "
         ">= 0.3 and >= 50 trip ends per day kept the majority sign on >= 90% of qualifying days "
-        "(robust to stricter thresholds in the Phase 3 QC). These cells were selected for strong "
-        "imbalance, so high persistence is partly expected. Net flow describes completed passenger "
-        "trips only; it does not measure taxi availability, driver shortages or unmet requests.")
+        "(robust to stricter thresholds in the Phase 3 sensitivity checks). These cells were "
+        "selected for strong imbalance, so high persistence is partly expected. Net flow "
+        "describes completed passenger trips only; it does not measure taxi availability, "
+        "driver shortages or unmet requests.")
 
 
 SEGMENT_STYLE = [
-    ("High volume, morning outflow", NAVY, "Upper East Side, Penn Station"),
+    ("High volume, morning outflow", NAVY, "Penn Station, Upper West Side"),
     ("High volume, morning inflow", STEEL, "Midtown, Times Square"),
-    ("Weekend and late night", YELLOW, "East & West Village"),
-    ("Mid volume, evening inflow", SKY, "East Harlem, Clinton West"),
-    ("Low volume, morning-heavy", ICE, "Outer Brooklyn & Queens"),
+    ("Weekend and late night", YELLOW, "Lower East Side, Williamsburg"),
+    ("Mid volume, evening inflow", SKY, "Central Harlem, Long Island City"),
+    ("Low volume, morning-heavy", ICE, "East New York, Astoria"),
 ]
+# TLC zone names behind each example; verify() checks that every one belongs to its
+# segment and keeps it under the alternative feature weighting.
+EXAMPLE_ZONES = {
+    0: ["Penn Station/Madison Sq West", "Upper West Side South"],
+    1: ["Midtown Center", "Times Sq/Theatre District"],
+    2: ["Lower East Side", "Williamsburg (South Side)"],
+    3: ["Central Harlem", "Long Island City/Hunters Point"],
+    4: ["East New York", "Astoria"],
+}
 
 
 def slide_segments(prs, n):
@@ -624,7 +652,7 @@ def slide_segments(prs, n):
 def slide_recommendations(prs, n):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     background(slide, WHITE)
-    header(slide, "Recommendations and validation",
+    header(slide, "Recommendations for fleet operations and dispatch planning",
            "Three low-risk next steps, each to be validated before claiming operational impact")
     recs = [
         ("1", "Investigate repositioning in recurring imbalance corridors",
@@ -683,9 +711,17 @@ def build(output_path: Path = OUTPUT_PATH) -> tuple[Path, list[str]]:
     log = verify(numbers)
     prs = Presentation()
     prs.slide_width, prs.slide_height = SLIDE_W, SLIDE_H
-    prs.core_properties.title = "NYC Taxi Demand and Supply Analytics: executive summary"
+    prs.core_properties.title = "NYC Yellow Taxi trips, January 2025: executive summary"
     prs.core_properties.subject = "NYC TLC Yellow Taxi trip records, January 2025"
-    prs.core_properties.author = "Delphino"
+    # Replace python-pptx template defaults (author "Steve Canny", dates in 2013).
+    props = prs.core_properties
+    props.author = props.last_modified_by = "Delphino"
+    props.created = props.modified = datetime.now(timezone.utc).replace(microsecond=0, tzinfo=None)
+    props.revision = 1
+    props.comments = ("Five-slide executive summary for " + AUDIENCE + ". Built by "
+                         "src/build_deck.py from the project outputs.")
+    props.keywords = "NYC TLC; Yellow Taxi; trip records; k-means; executive summary"
+    props.category = "Portfolio project"
     for build_slide in [slide_summary, slide_demand, slide_flows, slide_segments,
                         slide_recommendations]:
         build_slide(prs, numbers)

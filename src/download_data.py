@@ -2,7 +2,10 @@
 
 Files are written to data/raw/ and never modified afterwards. A manifest
 (data/raw/manifest.json) records the source URL, size and SHA-256 of each
-file so later runs can verify the originals are unchanged.
+file so later runs can verify the originals are unchanged. A fresh download
+is checked against the committed manifest; if TLC has republished a file, the
+script reports CHANGED and exits with status 1 instead of overwriting the
+recorded checksum.
 
 Usage:
     python src/download_data.py            # download missing files, verify all
@@ -100,6 +103,9 @@ def main() -> int:
                 continue
             print(f"DOWNLOAD  {name}")
             download(url, path)
+            if name in manifest:
+                # Keep the recorded checksum so verify() can detect a republished file.
+                continue
             manifest[name] = {
                 "url": url,
                 "size_bytes": path.stat().st_size,

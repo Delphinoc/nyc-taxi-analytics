@@ -121,11 +121,11 @@ Method:
 - **Evening inbound zones [Observed].** Upper East Side North (−149 and −155
   per weekday at 21:00–22:59) and Upper West Side North (−126 at 21:00) are
   net inbound: trips end there more than they start.
-- **Persistence is the rule for strong cells [Observed, independently
-  re-verified].** There are 228 weekday cells with |I| ≥ 0.3 and at least 50
+- **Persistence is the rule for strong cells [Observed; recomputed
+  independently].** There are 228 weekday cells with |I| ≥ 0.3 and at least 50
   trip ends per weekday on average. 225 of them kept the same sign on ≥ 90%
   of qualifying weekdays, and 209 on every qualifying weekday.
-  - The QC pass recomputed this from the daily counts. The majority daily sign
+  - An independent recomputation from the daily counts agrees. The majority daily sign
     equals the sign of the monthly total in all 228 cells, and only 10 cell-days
     had zero net flow.
   - The result holds under stricter rules (table in section 5): at least 98%
@@ -182,7 +182,7 @@ Method:
     6,108 trips (median $95.40).
   - Medians sit on the $0.70 meter grid, so they move in steps. Means are used
     for comparisons.
-- **Base fare vs total charge by time of day [Observed, re-verified]**
+- **Base fare vs total charge by time of day [Observed; recomputed independently]**
   (fig08). Two different measures are compared here, for weekday
   standard-rate trips relative to midday:
   - **Metered base fare** (`fare_amount`) is the meter's time-and-distance

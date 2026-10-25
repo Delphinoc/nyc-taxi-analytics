@@ -10,9 +10,8 @@ demand.
 
 **Shares.** Unless a heading says otherwise, every pickup share in this
 report is a share of **all 3,402,692 eligible pickups** in January 2025.
-An earlier draft divided by the fitted zones' pickups instead, which
-overstated segment shares by about 8%. That has been corrected here and in
-fig11.
+Dividing by the fitted zones' pickups instead would overstate segment
+shares by about 8%.
 
 ## 1. Population and coverage (reconciled against the trip file)
 
@@ -306,7 +305,7 @@ space.
   would need an external outcome, such as wait times, revenue or supply data.
 - So the rule comparisons don't directly establish the superiority of k = 5.
 
-## 9. Recommendation for the executive presentation
+## 9. Recommended use of the segmentation
 
 **Use Model A k = 5 as an analyst-selected operational segmentation,**
 alongside the separately defined airport category (five k-means segments plus
@@ -317,19 +316,20 @@ airports).
   - It separates timing and flow-direction patterns that the statistically
     selected k = 2 merges.
   - It doesn't cluster on fares, which are biased by Flex Fare.
-- **How to present it:**
+- **How to communicate it:**
   - Lead with the robust contrast: two high-volume segments with opposite
     morning flows (78.7% of all pickups together).
   - Add the small, consistent morning-heavy outer group.
   - Show segment shares as approximate. Label the weekend/late-night segment
-    and the Upper East Side memberships as weighting-sensitive.
+    and the Upper East Side memberships as weighting-sensitive, and use
+    zones that keep their segment under both weightings as examples.
   - Don't call k = 5 statistically optimal or outcome-validated.
 - **Model B** can support trip-length context in an appendix. It shouldn't be
   used as a headline segmentation.
 
 ## 10. Reproducibility checks
 
-- 54 tests pass. 19 are new in Phase 4 and cover:
+- 19 automated tests cover the Phase 4 code:
   - histogram medians, shares, imbalance and ratios
   - date weighting and bootstrap within day type
   - standardisation and missing-value filling
