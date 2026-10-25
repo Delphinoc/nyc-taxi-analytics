@@ -5,8 +5,8 @@ to study trip patterns, demand and supply proxies, and fares.
 
 **Status:** Phase 1 (environment, data acquisition, raw profile) and Phase 2
 (rule-based flagging and eligibility, no deletion) and Phase 3 (exploratory
-analysis) are complete. Phase 4 (k-means zone segmentation) is implemented and
-awaiting review. The presentation is a later phase.
+analysis) are complete. Phase 4 (k-means zone segmentation) is complete. Phase 5 (five-slide
+executive deck) is implemented and awaiting review.
 
 ## Repository layout
 
@@ -86,6 +86,16 @@ python src/cluster_figures.py      # charts fig10-fig15 -> reports/figures/
 
 Findings: [reports/phase4_clustering_report.md](reports/phase4_clustering_report.md).
 Design, selection rule and limitations: [docs/clustering_design.md](docs/clustering_design.md).
+
+## Reproduce Phase 5 (executive deck)
+
+```powershell
+python src/build_deck.py           # reports/nyc_taxi_executive_deck.pptx (checks every figure first)
+```
+
+The deck uses native, editable PowerPoint charts. Every displayed figure is
+read from the Phase 2-4 outputs and checked against the reported values before
+the file is written. Slide previews: `reports/deck_preview/`.
 
 ## Data and limitations
 

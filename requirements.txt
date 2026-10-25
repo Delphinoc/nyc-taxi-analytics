@@ -1,8 +1,10 @@
 # Direct dependencies, pinned to the versions validated in Phase 1 (Python 3.12).
-# matplotlib was added in Phase 3 for the report charts; scikit-learn in Phase 4 for k-means.
+# matplotlib was added in Phase 3 for the report charts; scikit-learn in Phase 4 for k-means;
+# python-pptx in Phase 5 for the executive deck.
 pandas==3.1.0
 pyarrow==26.0.0
 requests==2.34.2
 matplotlib==3.11.2
 scikit-learn==1.9.1
+python-pptx==1.0.2
 pytest==9.1.1
