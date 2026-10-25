@@ -4,9 +4,9 @@ Portfolio project analysing NYC TLC Yellow Taxi trip records (January 2025)
 to study trip patterns, demand and supply proxies, and fares.
 
 **Status:** Phase 1 (environment, data acquisition, raw profile) and Phase 2
-(rule-based flagging and eligibility, no deletion) are complete. Phase 3
-(exploratory analysis) is implemented and awaiting review. Clustering and the
-presentation are later phases.
+(rule-based flagging and eligibility, no deletion) and Phase 3 (exploratory
+analysis) are complete. Phase 4 (k-means zone segmentation) is implemented and
+awaiting review. The presentation is a later phase.
 
 ## Repository layout
 
@@ -75,6 +75,17 @@ Findings: [reports/phase3_eda_report.md](reports/phase3_eda_report.md).
 Metric definitions and denominators: [docs/eda_metrics.md](docs/eda_metrics.md).
 Aggregation takes about 25 seconds and peaks around 1.6 GB of memory; charts
 take about 5 seconds.
+
+## Reproduce Phase 4 (zone segmentation)
+
+```powershell
+python src/zone_features.py        # zone x date base tables + zone features -> data/processed/zones/
+python src/zone_clustering.py      # k-means selection, stability, sensitivity, assignments
+python src/cluster_figures.py      # charts fig10-fig15 -> reports/figures/
+```
+
+Findings: [reports/phase4_clustering_report.md](reports/phase4_clustering_report.md).
+Design, selection rule and limitations: [docs/clustering_design.md](docs/clustering_design.md).
 
 ## Data and limitations
 
